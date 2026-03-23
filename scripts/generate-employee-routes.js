@@ -16,7 +16,7 @@ const routes = [
     path: 'hr/post-job/page.tsx', 
     component: 'PostJobPage',
     role: 'hr',
-    query: null,
+    mutation: 'CREATE_JOB',
     isForm: true
   },
   { 
@@ -118,7 +118,7 @@ const routes = [
     path: 'manager/team/add/page.tsx', 
     component: 'AddTeamMemberPage',
     role: 'manager',
-    mutation: 'ADD_TEAM_MEMBER',
+    mutation: 'ADD_EMPLOYEE',
     isForm: true
   },
   { 
@@ -132,13 +132,15 @@ const routes = [
     path: 'manager/reports/page.tsx', 
     component: 'ManagerReportsPage',
     role: 'manager',
-    query: 'MANAGER_REPORTS'
+    query: 'MANAGER_STATS',
+    dataField: 'managerStats'
   },
   { 
     path: 'manager/budget/page.tsx', 
     component: 'BudgetPage',
     role: 'manager',
-    query: 'MANAGER_BUDGET'
+    query: 'MANAGER_STATS',
+    dataField: 'managerStats'
   },
 
   // ==================== SELLER MANAGER ====================
@@ -159,7 +161,8 @@ const routes = [
     path: 'seller-manager/sellers/page.tsx', 
     component: 'SellersPage',
     role: 'seller_manager',
-    query: 'ALL_SELLERS'
+    query: 'SELLER_MANAGER_STATS',
+    dataField: 'topSellers'
   },
   { 
     path: 'seller-manager/sellers/[id]/page.tsx', 
@@ -187,7 +190,8 @@ const routes = [
     path: 'seller-manager/reports/page.tsx', 
     component: 'SellerReportsPage',
     role: 'seller_manager',
-    query: 'SELLER_REPORTS'
+    query: 'SELLER_MANAGER_STATS',
+    dataField: 'sellerManagerStats'
   },
 
   // ==================== APP MANAGER ====================
@@ -214,14 +218,16 @@ const routes = [
     path: 'app-manager/developers/[id]/page.tsx', 
     component: 'DeveloperDetailsPage',
     role: 'app_manager',
-    query: 'GET_DEVELOPER',
+    query: 'ALL_DEVELOPERS',
+    dataField: 'allDevelopers',
     hasId: true
   },
   { 
     path: 'app-manager/apps/page.tsx', 
     component: 'AppsPage',
     role: 'app_manager',
-    query: 'ALL_APPS'
+    query: 'APP_MANAGER_STATS',
+    dataField: 'topApps'
   },
   { 
     path: 'app-manager/apps/[id]/page.tsx', 
@@ -243,13 +249,15 @@ const routes = [
     path: 'app-manager/analytics/page.tsx', 
     component: 'AppAnalyticsPage',
     role: 'app_manager',
-    query: 'APP_ANALYTICS'
+    query: 'APP_MANAGER_STATS',
+    dataField: 'appManagerStats'
   },
   { 
     path: 'app-manager/categories/page.tsx', 
     component: 'CategoriesPage',
     role: 'app_manager',
-    query: 'APP_CATEGORIES'
+    query: 'APP_MANAGER_STATS',
+    dataField: 'appsByStatus'
   },
 
   // ==================== DEVELOPER MANAGER ====================
@@ -304,13 +312,15 @@ const routes = [
     path: 'developer-manager/skills/page.tsx', 
     component: 'SkillsMatrixPage',
     role: 'developer_manager',
-    query: 'SKILLS_MATRIX'
+    query: 'DEVELOPER_MANAGER_STATS',
+    dataField: 'skillDistribution'
   },
   { 
     path: 'developer-manager/reports/page.tsx', 
     component: 'DeveloperReportsPage',
     role: 'developer_manager',
-    query: 'DEVELOPER_REPORTS'
+    query: 'DEVELOPER_MANAGER_STATS',
+    dataField: 'developerManagerStats'
   },
 
   // ==================== STORE MANAGER ====================
@@ -331,7 +341,8 @@ const routes = [
     path: 'store-manager/categories/page.tsx', 
     component: 'StoreCategoriesPage',
     role: 'store_manager',
-    query: 'STORE_CATEGORIES'
+    query: 'STORE_MANAGER_STATS',
+    dataField: 'storesByCategory'
   },
   { 
     path: 'store-manager/stores/page.tsx', 
@@ -359,13 +370,15 @@ const routes = [
     path: 'store-manager/analytics/page.tsx', 
     component: 'StoreAnalyticsPage',
     role: 'store_manager',
-    query: 'STORE_ANALYTICS'
+    query: 'STORE_MANAGER_STATS',
+    dataField: 'storeManagerStats'
   },
   { 
     path: 'store-manager/suspended/page.tsx', 
     component: 'SuspendedStoresPage',
     role: 'store_manager',
-    query: 'SUSPENDED_STORES'
+    query: 'STORE_MANAGER_STATS',
+    dataField: 'suspendedStores'
   },
 
   // ==================== FINANCE MANAGER ====================
@@ -407,13 +420,15 @@ const routes = [
     path: 'finance-manager/reports/page.tsx', 
     component: 'FinanceReportsPage',
     role: 'finance_manager',
-    query: 'FINANCE_REPORTS'
+    query: 'FINANCE_MANAGER_STATS',
+    dataField: 'financeManagerStats'
   },
   { 
     path: 'finance-manager/analytics/page.tsx', 
     component: 'FinanceAnalyticsPage',
     role: 'finance_manager',
-    query: 'FINANCE_ANALYTICS'
+    query: 'FINANCE_MANAGER_STATS',
+    dataField: 'financeManagerStats'
   },
 
   // ==================== MARKETING MANAGER ====================
@@ -441,35 +456,39 @@ const routes = [
     path: 'marketing-manager/campaigns/[id]/page.tsx', 
     component: 'CampaignDetailsPage',
     role: 'marketing_manager',
-    query: 'GET_CAMPAIGN',
+    query: 'CAMPAIGN_PERFORMANCE',
+    dataField: 'campaignPerformance',
     hasId: true
   },
   { 
     path: 'marketing-manager/campaigns/[id]/edit/page.tsx', 
     component: 'EditCampaignPage',
     role: 'marketing_manager',
-    query: 'GET_CAMPAIGN',
+    query: 'CAMPAIGN_PERFORMANCE',
     hasId: true,
-    mutation: 'UPDATE_CAMPAIGN',
+    mutation: 'UPDATE_CAMPAIGN_STATUS',
     isForm: true
   },
   { 
     path: 'marketing-manager/analytics/page.tsx', 
     component: 'MarketingAnalyticsPage',
     role: 'marketing_manager',
-    query: 'MARKETING_ANALYTICS'
+    query: 'MARKETING_MANAGER_STATS',
+    dataField: 'marketingManagerStats'
   },
   { 
     path: 'marketing-manager/audience/page.tsx', 
     component: 'AudiencePage',
     role: 'marketing_manager',
-    query: 'AUDIENCE_DATA'
+    query: 'MARKETING_MANAGER_STATS',
+    dataField: 'marketingManagerStats'
   },
   { 
     path: 'marketing-manager/email/page.tsx', 
     component: 'EmailMarketingPage',
     role: 'marketing_manager',
-    query: 'EMAIL_CAMPAIGNS'
+    query: 'ACTIVE_CAMPAIGNS',
+    dataField: 'activeCampaigns'
   },
 
   // ==================== APP REVIEWER ====================
@@ -490,13 +509,15 @@ const routes = [
     path: 'app-reviewer/approved/page.tsx', 
     component: 'ApprovedAppsPage',
     role: 'app_reviewer',
-    query: 'APPROVED_APPS'
+    query: 'REVIEWED_APPS',
+    dataField: 'reviewedApps'
   },
   { 
     path: 'app-reviewer/rejected/page.tsx', 
     component: 'RejectedAppsPage',
     role: 'app_reviewer',
-    query: 'REJECTED_APPS'
+    query: 'REVIEWED_APPS',
+    dataField: 'reviewedApps'
   },
   { 
     path: 'app-reviewer/apps/[id]/page.tsx', 
@@ -526,25 +547,28 @@ const routes = [
     path: 'content-moderator/reviewed/page.tsx', 
     component: 'ReviewedReportsPage',
     role: 'content_moderator',
-    query: 'REVIEWED_REPORTS'
+    query: 'MODERATOR_ACTIONS',
+    dataField: 'moderatorActions'
   },
   { 
     path: 'content-moderator/flagged/page.tsx', 
     component: 'FlaggedContentPage',
     role: 'content_moderator',
-    query: 'FLAGGED_CONTENT'
+    query: 'CONTENT_MODERATOR_STATS',
+    dataField: 'pendingReportsList'
   },
   { 
     path: 'content-moderator/guidelines/page.tsx', 
     component: 'GuidelinesPage',
     role: 'content_moderator',
-    query: 'MODERATION_GUIDELINES'
+    isStatic: true
   },
   { 
     path: 'content-moderator/content/[id]/page.tsx', 
     component: 'ContentDetailsPage',
     role: 'content_moderator',
-    query: 'GET_CONTENT',
+    query: 'PENDING_REPORTS',
+    dataField: 'pendingReports',
     hasId: true,
     mutation: 'RESOLVE_REPORT'
   },
@@ -561,7 +585,8 @@ const routes = [
     path: 'support-agent/tickets/page.tsx', 
     component: 'AllTicketsPage',
     role: 'support_agent',
-    query: 'ALL_TICKETS'
+    query: 'OPEN_TICKETS',
+    dataField: 'openTickets'
   },
   { 
     path: 'support-agent/tickets/[id]/page.tsx', 
@@ -575,19 +600,23 @@ const routes = [
     path: 'support-agent/my-tickets/page.tsx', 
     component: 'MyTicketsPage',
     role: 'support_agent',
-    query: 'MY_TICKETS'
+    query: 'OPEN_TICKETS',
+    dataField: 'openTickets'
   },
   { 
     path: 'support-agent/stats/page.tsx', 
     component: 'SupportStatsPage',
     role: 'support_agent',
-    query: 'SUPPORT_STATS'
+    query: 'SUPPORT_AGENT_STATS',
+    dataField: 'supportAgentStats'
   },
   { 
     path: 'support-agent/settings/page.tsx', 
     component: 'SupportSettingsPage',
     role: 'support_agent',
-    query: 'SUPPORT_SETTINGS'
+    query: 'EMPLOYEE_SETTINGS',
+    dataField: 'employeeSettings',
+    mutation: 'UPDATE_EMPLOYEE_SETTINGS'
   },
 ];
 
@@ -622,13 +651,33 @@ const checkComponentExists = (componentName) => {
 
 // دالة لتوليد صفحة مع التحقق من الصلاحية
 const generatePageContent = (route) => {
-  const roleCheckFunction = `is${route.role.split('_').map(word => 
+  const roleName = route.role.split('_').map(word => 
     word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('')}`;
-
+  ).join('');
+  
   const hasQuery = route.query && route.query !== 'null';
   const hasMutation = route.mutation && route.mutation !== 'null';
   const hasId = route.hasId;
+  const dataField = route.dataField || getDataField(route.query);
+
+  // تحديد مسار الاستيراد الصحيح للاستعلامات
+  let queryImportPath = '@/graphql/employee/queries';
+  if (route.query === 'GET_ADMIN_APPLICATION' || route.query === 'GET_EMPLOYEE' || 
+      route.query === 'EMPLOYEE_SALARIES' || route.query === 'GET_SALARY') {
+    queryImportPath = '@/graphql/jobs/queries';
+  } else if (route.query === 'GET_SELLER') {
+    queryImportPath = '@/graphql/client/queries';
+  }
+
+  // تحديد مسار الاستيراد الصحيح للطفرات
+  let mutationImportPath = '@/graphql/employee/mutations';
+  if (route.mutation === 'CREATE_JOB' || route.mutation === 'UPDATE_EMPLOYEE' || 
+      route.mutation === 'UPDATE_APPLICATION_STATUS') {
+    mutationImportPath = '@/graphql/jobs/mutations';
+  } else if (route.mutation === 'CREATE_PROJECT' || route.mutation === 'UPDATE_PROJECT' ||
+             route.mutation === 'UPDATE_SELLER' || route.mutation === 'UPDATE_STORE') {
+    mutationImportPath = '@/graphql/client/mutations';
+  }
 
   return `'use client';
 
@@ -637,11 +686,9 @@ import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { ${route.component} } from '@/components/employee/dashboards/${getComponentPath(route.component)}';
-import { is${route.role.split('_').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1)
-  ).join('')} } from '@/lib/auth-utils';
-${hasQuery ? `import { ${route.query} } from '@/graphql/employee/queries';` : ''}
-${hasMutation ? `import { ${route.mutation} } from '@/graphql/employee/mutations';` : ''}
+import { is${roleName} } from '@/lib/auth-utils';
+${hasQuery ? `import { ${route.query} } from '${queryImportPath}';` : ''}
+${hasMutation ? `import { ${route.mutation} } from '${mutationImportPath}';` : ''}
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
@@ -656,7 +703,7 @@ export default function ${route.component}Page() {
 
   ${hasQuery ? `const { data: queryData, loading: queryLoading, error: queryError } = useQuery(${route.query}${
     hasId ? `, {
-    variables: { id${route.query.includes('EMPLOYEE') ? '' : ''} },
+    variables: { id },
     skip: !id
   }` : route.queryParams ? `, {
     variables: ${JSON.stringify(route.queryParams)}
@@ -674,9 +721,7 @@ export default function ${route.component}Page() {
     }
 
     // التحقق من الصلاحية
-    if (!is${route.role.split('_').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join('')}(session)) {
+    if (!is${roleName}(session)) {
       router.push('/employee/dashboard');
       return;
     }
@@ -716,7 +761,7 @@ export default function ${route.component}Page() {
 
   return (
     <${route.component} 
-      ${hasQuery ? `data={queryData?.${getDataField(route.query)}}` : ''}
+      ${hasQuery ? `data={queryData?.${dataField}}` : ''}
       ${hasMutation ? `onSubmit={handleMutation}` : ''}
       ${hasId ? `id={id}` : ''}
     />
@@ -728,53 +773,84 @@ export default function ${route.component}Page() {
 // دالة لتحديد حقل البيانات من الاستعلام
 function getDataField(queryName) {
   const mappings = {
+    // HR
     'HR_STATS': 'hrStats',
     'HR_APPLICATIONS': 'hrApplications.applications',
     'HR_EMPLOYEES': 'hrEmployees',
     'HR_INTERVIEWS': 'hrInterviews',
+    
+    // Manager
     'MANAGER_STATS': 'managerStats',
     'MANAGER_TEAM_MEMBERS': 'managerTeamMembers',
     'MANAGER_PROJECTS': 'managerProjects',
+    
+    // Seller Manager
     'SELLER_MANAGER_STATS': 'sellerManagerStats',
     'PENDING_SELLERS': 'pendingSellers',
     'ALL_STORES': 'allStores',
+    'GET_SELLER': 'seller',
+    
+    // App Manager
     'APP_MANAGER_STATS': 'appManagerStats',
     'PENDING_APPS': 'pendingApps',
     'ALL_DEVELOPERS': 'allDevelopers',
+    'GET_APP': 'app',
+    'topApps': 'topApps',
+    'appsByStatus': 'appsByStatus',
+    
+    // Developer Manager
     'DEVELOPER_MANAGER_STATS': 'developerManagerStats',
     'DEVELOPER_TEAM': 'developerTeam',
     'DEVELOPER_APPS': 'developerApps',
+    'GET_DEVELOPER': 'developer',
+    'GET_PROJECT_BY_ID': 'project',
+    'skillDistribution': 'skillDistribution',
+    'developerManagerStats': 'developerManagerStats',
+    
+    // Store Manager
     'STORE_MANAGER_STATS': 'storeManagerStats',
     'PENDING_STORES': 'pendingStores',
-    'ACTIVE_STORES': 'activeStores',
+    'GET_STORE': 'store',
+    'storesByCategory': 'storesByCategory',
+    'suspendedStores': 'suspendedStores',
+    'storeManagerStats': 'storeManagerStats',
+    
+    // Finance Manager
     'FINANCE_MANAGER_STATS': 'financeManagerStats',
     'PENDING_PAYOUTS': 'pendingPayouts',
-    'FINANCE_TRANSACTIONS': 'financeTransactions',
+    'GET_PAYOUT': 'payout',
     'EMPLOYEE_SALARIES': 'employeeSalaries',
+    'GET_SALARY': 'salary',
+    'financeManagerStats': 'financeManagerStats',
+    
+    // Marketing Manager
     'MARKETING_MANAGER_STATS': 'marketingManagerStats',
     'ACTIVE_CAMPAIGNS': 'activeCampaigns',
+    'CAMPAIGN_PERFORMANCE': 'campaignPerformance',
+    'marketingManagerStats': 'marketingManagerStats',
+    
+    // App Reviewer
     'APP_REVIEWER_STATS': 'appReviewerStats',
     'PENDING_APP_REVIEWS': 'pendingAppReviews',
     'REVIEWED_APPS': 'reviewedApps',
+    
+    // Content Moderator
     'CONTENT_MODERATOR_STATS': 'contentModeratorStats',
     'PENDING_REPORTS': 'pendingReports',
     'MODERATOR_ACTIONS': 'moderatorActions',
+    'pendingReportsList': 'pendingReportsList',
+    
+    // Support Agent
     'SUPPORT_AGENT_STATS': 'supportAgentStats',
     'OPEN_TICKETS': 'openTickets',
-    'RESOLVED_TICKETS': 'resolvedTickets',
-    'GET_EMPLOYEE': 'employee',
-    'GET_SELLER': 'seller',
-    'GET_STORE': 'store',
-    'GET_DEVELOPER': 'developer',
-    'GET_APP': 'app',
-    'GET_PROJECT_BY_ID': 'project',
-    'GET_PAYOUT': 'payout',
-    'GET_SALARY': 'salary',
-    'GET_CAMPAIGN': 'campaign',
     'GET_TICKET': 'ticket',
-    'GET_CONTENT': 'content',
+    'EMPLOYEE_SETTINGS': 'employeeSettings',
+    'supportAgentStats': 'supportAgentStats',
+    
+    // General
+    'GET_EMPLOYEE': 'employee',
   };
-  return mappings[queryName] || queryName.toLowerCase();
+  return mappings[queryName] || queryName?.toLowerCase() || 'data';
 }
 
 // دالة لتحديد مسار المكون

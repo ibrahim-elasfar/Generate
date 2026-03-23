@@ -5,205 +5,237 @@ const path = require('path');
 
 const baseDir = path.join(__dirname, '../components/employee/dashboards');
 
-// ✅ خريطة الاستعلامات الحقيقية من ملفاتك
-const QUERY_MAP = {
-  // App Manager
-  'ALL_APPS': 'DEVELOPER_APPS_QUERY',           // من graphql/employee/queries.ts
-  'GET_APP': 'GET_APP',                         // يحتاج إنشاء
-  'APP_ANALYTICS': 'DEVELOPER_ANALYTICS_QUERY', // من graphql/employee/queries.ts
-  
-  // Developer Manager
-  'GET_DEVELOPER': 'GET_DEVELOPER',             // من graphql/jobs/queries.ts
-  'DEVELOPER_PROJECTS': 'DEVELOPER_APPS',       // من graphql/employee/queries.ts
-  'DEVELOPER_TEAM': 'DEVELOPER_TEAM',           // من graphql/employee/queries.ts
-  'SKILLS_MATRIX': 'DEVELOPER_MANAGER_STATS',   // من graphql/employee/queries.ts (يحتوي skillDistribution)
-  
-  // Finance Manager
-  'PENDING_PAYOUTS': 'PENDING_PAYOUTS',         // من graphql/employee/queries.ts
-  'GET_PAYOUT': 'GET_PAYOUT',                   // يحتاج إنشاء
-  'EMPLOYEE_SALARIES': 'EMPLOYEE_SALARIES',     // من graphql/jobs/queries.ts
-  'GET_SALARY': 'GET_SALARY',                   // من graphql/jobs/queries.ts
-  'FINANCE_REPORTS': 'FINANCE_MANAGER_STATS',   // من graphql/employee/queries.ts
-  'FINANCE_ANALYTICS': 'FINANCE_MANAGER_STATS', // من graphql/employee/queries.ts
-  
-  // Marketing Manager
-  'ACTIVE_CAMPAIGNS': 'ACTIVE_CAMPAIGNS',       // من graphql/employee/queries.ts
-  'GET_CAMPAIGN': 'CAMPAIGN_PERFORMANCE',       // من graphql/employee/queries.ts
-  'MARKETING_ANALYTICS': 'MARKETING_MANAGER_STATS', // من graphql/employee/queries.ts
-  'AUDIENCE_DATA': 'MARKETING_MANAGER_STATS',   // من graphql/employee/queries.ts
-  'EMAIL_CAMPAIGNS': 'ACTIVE_CAMPAIGNS',        // من graphql/employee/queries.ts
-  
-  // Store Manager
-  'PENDING_STORES': 'PENDING_STORES',           // من graphql/employee/queries.ts
-  'STORE_CATEGORIES': 'STORE_MANAGER_STATS',    // من graphql/employee/queries.ts (يحتوي storesByCategory)
-  'ALL_STORES': 'ALL_STORES',                   // من graphql/employee/queries.ts
-  'GET_STORE': 'GET_STORE',                     // يحتاج إنشاء
-  'STORE_ANALYTICS': 'STORE_MANAGER_STATS',     // من graphql/employee/queries.ts
-  'SUSPENDED_STORES': 'STORE_MANAGER_STATS',    // من graphql/employee/queries.ts (يحتوي suspendedStores)
-  
-  // App Reviewer
-  'PENDING_APP_REVIEWS': 'PENDING_APP_REVIEWS', // من graphql/employee/queries.ts
-  'APPROVED_APPS': 'REVIEWED_APPS',             // من graphql/employee/queries.ts
-  'REJECTED_APPS': 'REVIEWED_APPS',             // من graphql/employee/queries.ts
-  
-  // Content Moderator
-  'PENDING_REPORTS': 'PENDING_REPORTS',         // من graphql/employee/queries.ts
-  'REVIEWED_REPORTS': 'MODERATOR_ACTIONS',      // من graphql/employee/queries.ts
-  'FLAGGED_CONTENT': 'CONTENT_MODERATOR_STATS', // من graphql/employee/queries.ts
-  'GET_CONTENT': 'GET_CONTENT',                 // يحتاج إنشاء
-  
-  // Support Agent
-  'ALL_TICKETS': 'OPEN_TICKETS',                // من graphql/employee/queries.ts
-  'GET_TICKET': 'GET_TICKET',                   // يحتاج إنشاء
-  'MY_TICKETS': 'OPEN_TICKETS',                 // من graphql/employee/queries.ts
-  'SUPPORT_STATS': 'SUPPORT_AGENT_STATS',       // من graphql/employee/queries.ts
-  'SUPPORT_SETTINGS': 'EMPLOYEE_SETTINGS',      // من graphql/employee/queries.ts
-  
-  // HR Manager
-  'GET_ADMIN_APPLICATION': 'GET_ADMIN_APPLICATION', // من graphql/jobs/queries.ts
-  'GET_EMPLOYEE': 'GET_EMPLOYEE',                   // من graphql/jobs/queries.ts
-  
-  // Manager
-  'GET_PROJECT_BY_ID': 'GET_PROJECT_BY_ID',         // من graphql/employee/queries.ts
-  'MANAGER_REPORTS': 'MANAGER_STATS',               // من graphql/employee/queries.ts
-  'MANAGER_BUDGET': 'MANAGER_STATS',                // من graphql/employee/queries.ts (يحتوي budgetUtilized, totalBudget)
-  
-  // Seller Manager
-  'PENDING_SELLERS': 'PENDING_SELLERS',             // من graphql/employee/queries.ts
-  'ALL_SELLERS': 'SELLER_MANAGER_STATS',            // من graphql/employee/queries.ts (يحتوي topSellers)
-  'GET_SELLER': 'GET_SELLER',                       // يحتاج إنشاء
-  'SELLER_REPORTS': 'SELLER_MANAGER_STATS',         // من graphql/employee/queries.ts
-};
-
-// ✅ خريطة الطفرات الحقيقية
-const MUTATION_MAP = {
-  'REVIEW_APP': 'REVIEW_APP',                       // من graphql/employee/mutations.ts
-  'ASSIGN_PROJECT': 'ASSIGN_PROJECT',               // من graphql/employee/mutations.ts
-  'CREATE_CAMPAIGN_EMPLOYEE': 'CREATE_CAMPAIGN_EMPLOYEE', // من graphql/employee/mutations.ts
-  'UPDATE_CAMPAIGN': 'UPDATE_CAMPAIGN_STATUS',      // من graphql/employee/mutations.ts
-  'SUSPEND_STORE': 'SUSPEND_STORE',                 // من graphql/employee/mutations.ts
-  'SUBMIT_REVIEW': 'SUBMIT_REVIEW',                 // من graphql/employee/mutations.ts
-  'CREATE_JOB': 'CREATE_JOB',                       // من graphql/jobs/mutations.ts
-  'ADD_EMPLOYEE': 'ADD_EMPLOYEE',                   // من graphql/employee/mutations.ts
-  'CREATE_PROJECT': 'CREATE_PROJECT',               // من graphql/client/mutations.ts
-  'UPDATE_PROJECT': 'UPDATE_PROJECT',               // من graphql/client/mutations.ts
-  'ADD_TEAM_MEMBER': 'ADD_EMPLOYEE',                // من graphql/employee/mutations.ts
-  'ASSIGN_TASK': 'ASSIGN_TASK',                     // من graphql/employee/mutations.ts
-  'UPDATE_SUPPORT_SETTINGS': 'UPDATE_EMPLOYEE_SETTINGS', // من graphql/employee/mutations.ts
-};
-
-// ✅ المكونات المفقودة مع الاستعلامات/الطفرات الحقيقية
+// ✅ المكونات المطلوبة
 const missingComponents = [
-  // App Manager
-  { name: 'AppsPage', dir: 'app-manager', type: 'list', title: 'Applications', query: 'ALL_APPS', realQuery: 'DEVELOPER_APPS_QUERY', dataField: 'developerApps' },
-  { name: 'AppDetailsPage', dir: 'app-manager', type: 'details', title: 'Application Details', query: 'GET_APP', realQuery: 'DEVELOPER_APPS_QUERY', dataField: 'developerApps', hasId: true },
-  { name: 'AppReviewPage', dir: 'app-manager', type: 'form', title: 'Review Application', mutation: 'REVIEW_APP', realMutation: 'REVIEW_APP' },
-  { name: 'AppAnalyticsPage', dir: 'app-manager', type: 'analytics', title: 'App Analytics', query: 'APP_ANALYTICS', realQuery: 'DEVELOPER_ANALYTICS_QUERY', dataField: 'developerAnalytics' },
-  
   // Developer Manager
-  { name: 'DeveloperProfilePage', dir: 'developer-manager', type: 'profile', title: 'Developer Profile', query: 'GET_DEVELOPER', realQuery: 'GET_DEVELOPER', dataField: 'developer' },
-  { name: 'AssignProjectPage', dir: 'developer-manager', type: 'assign', title: 'Assign Project', mutation: 'ASSIGN_PROJECT', realMutation: 'ASSIGN_PROJECT' },
-  { name: 'SkillsMatrixPage', dir: 'developer-manager', type: 'matrix', title: 'Skills Matrix', query: 'SKILLS_MATRIX', realQuery: 'DEVELOPER_MANAGER_STATS', dataField: 'skillDistribution' },
-  { name: 'DeveloperProjectsPage', dir: 'developer-manager', type: 'list', title: 'Developer Projects', query: 'DEVELOPER_PROJECTS', realQuery: 'DEVELOPER_APPS', dataField: 'developerApps' },
-  { name: 'DeveloperProjectDetailsPage', dir: 'developer-manager', type: 'details', title: 'Project Details', query: 'GET_PROJECT_BY_ID', realQuery: 'GET_PROJECT_BY_ID', dataField: 'project' },
-  { name: 'DeveloperTeamPage', dir: 'developer-manager', type: 'list', title: 'Developer Team', query: 'DEVELOPER_TEAM', realQuery: 'DEVELOPER_TEAM', dataField: 'developerTeam' },
-  
-  // Finance Manager
-  { name: 'PayoutsPage', dir: 'finance-manager', type: 'list', title: 'Payouts', query: 'PENDING_PAYOUTS', realQuery: 'PENDING_PAYOUTS', dataField: 'pendingPayouts' },
-  { name: 'PayoutDetailsPage', dir: 'finance-manager', type: 'details', title: 'Payout Details', query: 'GET_PAYOUT', realQuery: 'PENDING_PAYOUTS', dataField: 'pendingPayouts', hasId: true },
-  { name: 'SalariesPage', dir: 'finance-manager', type: 'list', title: 'Salaries', query: 'EMPLOYEE_SALARIES', realQuery: 'EMPLOYEE_SALARIES', dataField: 'employeeSalaries' },
-  { name: 'SalaryDetailsPage', dir: 'finance-manager', type: 'details', title: 'Salary Details', query: 'GET_SALARY', realQuery: 'GET_SALARY', dataField: 'salary' },
-  { name: 'FinanceReportsPage', dir: 'finance-manager', type: 'reports', title: 'Financial Reports', query: 'FINANCE_REPORTS', realQuery: 'FINANCE_MANAGER_STATS', dataField: 'financeManagerStats' },
-  { name: 'FinanceAnalyticsPage', dir: 'finance-manager', type: 'analytics', title: 'Financial Analytics', query: 'FINANCE_ANALYTICS', realQuery: 'FINANCE_MANAGER_STATS', dataField: 'financeManagerStats' },
-  
-  // Marketing Manager
-  { name: 'CampaignsPage', dir: 'marketing-manager', type: 'list', title: 'Campaigns', query: 'ACTIVE_CAMPAIGNS', realQuery: 'ACTIVE_CAMPAIGNS', dataField: 'activeCampaigns' },
-  { name: 'NewCampaignPage', dir: 'marketing-manager', type: 'form', title: 'New Campaign', mutation: 'CREATE_CAMPAIGN_EMPLOYEE', realMutation: 'CREATE_CAMPAIGN_EMPLOYEE' },
-  { name: 'CampaignDetailsPage', dir: 'marketing-manager', type: 'details', title: 'Campaign Details', query: 'GET_CAMPAIGN', realQuery: 'CAMPAIGN_PERFORMANCE', dataField: 'campaignPerformance' },
-  { name: 'EditCampaignPage', dir: 'marketing-manager', type: 'form', title: 'Edit Campaign', mutation: 'UPDATE_CAMPAIGN', realMutation: 'UPDATE_CAMPAIGN_STATUS' },
-  { name: 'MarketingAnalyticsPage', dir: 'marketing-manager', type: 'analytics', title: 'Marketing Analytics', query: 'MARKETING_ANALYTICS', realQuery: 'MARKETING_MANAGER_STATS', dataField: 'marketingManagerStats' },
-  { name: 'AudiencePage', dir: 'marketing-manager', type: 'analytics', title: 'Audience Insights', query: 'AUDIENCE_DATA', realQuery: 'MARKETING_MANAGER_STATS', dataField: 'marketingManagerStats' },
-  { name: 'EmailMarketingPage', dir: 'marketing-manager', type: 'list', title: 'Email Campaigns', query: 'EMAIL_CAMPAIGNS', realQuery: 'ACTIVE_CAMPAIGNS', dataField: 'activeCampaigns' },
-  
-  // Store Manager
-  { name: 'StoreApprovalsPage', dir: 'store-manager', type: 'list', title: 'Store Approvals', query: 'PENDING_STORES', realQuery: 'PENDING_STORES', dataField: 'pendingStores' },
-  { name: 'StoreCategoriesPage', dir: 'store-manager', type: 'list', title: 'Store Categories', query: 'STORE_CATEGORIES', realQuery: 'STORE_MANAGER_STATS', dataField: 'storesByCategory' },
-  { name: 'StoresListPage', dir: 'store-manager', type: 'list', title: 'All Stores', query: 'ALL_STORES', realQuery: 'ALL_STORES', dataField: 'allStores' },
-  { name: 'StoreDetailsPage', dir: 'store-manager', type: 'details', title: 'Store Details', query: 'GET_STORE', realQuery: 'ALL_STORES', dataField: 'allStores', hasId: true },
-  { name: 'SuspendStorePage', dir: 'store-manager', type: 'form', title: 'Suspend Store', mutation: 'SUSPEND_STORE', realMutation: 'SUSPEND_STORE' },
-  { name: 'StoreAnalyticsPage', dir: 'store-manager', type: 'analytics', title: 'Store Analytics', query: 'STORE_ANALYTICS', realQuery: 'STORE_MANAGER_STATS', dataField: 'storeManagerStats' },
-  { name: 'SuspendedStoresPage', dir: 'store-manager', type: 'list', title: 'Suspended Stores', query: 'SUSPENDED_STORES', realQuery: 'STORE_MANAGER_STATS', dataField: 'suspendedStores' },
-  
-  // App Reviewer
-  { name: 'PendingReviewsPage', dir: 'app-reviewer', type: 'list', title: 'Pending Reviews', query: 'PENDING_APP_REVIEWS', realQuery: 'PENDING_APP_REVIEWS', dataField: 'pendingAppReviews' },
-  { name: 'ApprovedAppsPage', dir: 'app-reviewer', type: 'list', title: 'Approved Apps', query: 'APPROVED_APPS', realQuery: 'REVIEWED_APPS', dataField: 'reviewedApps' },
-  { name: 'RejectedAppsPage', dir: 'app-reviewer', type: 'list', title: 'Rejected Apps', query: 'REJECTED_APPS', realQuery: 'REVIEWED_APPS', dataField: 'reviewedApps' },
-  { name: 'ReviewAppPage', dir: 'app-reviewer', type: 'form', title: 'Review App', mutation: 'SUBMIT_REVIEW', realMutation: 'SUBMIT_REVIEW' },
-  
-  // Content Moderator
-  { name: 'PendingReportsPage', dir: 'content-moderator', type: 'list', title: 'Pending Reports', query: 'PENDING_REPORTS', realQuery: 'PENDING_REPORTS', dataField: 'pendingReports' },
-  { name: 'ReviewedReportsPage', dir: 'content-moderator', type: 'list', title: 'Reviewed Reports', query: 'REVIEWED_REPORTS', realQuery: 'MODERATOR_ACTIONS', dataField: 'moderatorActions' },
-  { name: 'FlaggedContentPage', dir: 'content-moderator', type: 'list', title: 'Flagged Content', query: 'FLAGGED_CONTENT', realQuery: 'CONTENT_MODERATOR_STATS', dataField: 'contentModeratorStats' },
-  { name: 'ContentDetailsPage', dir: 'content-moderator', type: 'details', title: 'Content Details', query: 'GET_CONTENT', realQuery: 'PENDING_REPORTS', dataField: 'pendingReports', hasId: true },
-  { name: 'GuidelinesPage', dir: 'content-moderator', type: 'static', title: 'Moderation Guidelines' },
-  
+  { name: 'DeveloperProjectDetailsPage', dir: 'developer-manager', type: 'details', title: 'Project Details', realQuery: 'GET_PROJECT_BY_ID', dataField: 'project', hasId: true },
+  { name: 'DeveloperProfilePage', dir: 'developer-manager', type: 'profile', title: 'Developer Profile', realQuery: 'GET_DEVELOPER', dataField: 'developer' },
+  { name: 'SkillsMatrixPage', dir: 'developer-manager', type: 'matrix', title: 'Skills Matrix', realQuery: 'DEVELOPER_MANAGER_STATS', dataField: 'skillDistribution' },
+  { name: 'DeveloperReportsPage', dir: 'developer-manager', type: 'reports', title: 'Developer Reports', realQuery: 'DEVELOPER_MANAGER_STATS', dataField: 'developerManagerStats' },
+  { name: 'NewDeveloperProjectPage', dir: 'developer-manager', type: 'form', title: 'New Project', realMutation: 'CREATE_PROJECT' },
+  { name: 'AssignProjectPage', dir: 'developer-manager', type: 'assign', title: 'Assign Project', realMutation: 'ASSIGN_PROJECT' },
+
   // Support Agent
-  { name: 'AllTicketsPage', dir: 'support-agent', type: 'list', title: 'All Tickets', query: 'ALL_TICKETS', realQuery: 'OPEN_TICKETS', dataField: 'openTickets' },
-  { name: 'TicketDetailsPage', dir: 'support-agent', type: 'details', title: 'Ticket Details', query: 'GET_TICKET', realQuery: 'OPEN_TICKETS', dataField: 'openTickets', hasId: true },
-  { name: 'MyTicketsPage', dir: 'support-agent', type: 'list', title: 'My Tickets', query: 'MY_TICKETS', realQuery: 'OPEN_TICKETS', dataField: 'openTickets' },
-  { name: 'SupportStatsPage', dir: 'support-agent', type: 'analytics', title: 'Support Statistics', query: 'SUPPORT_STATS', realQuery: 'SUPPORT_AGENT_STATS', dataField: 'supportAgentStats' },
-  { name: 'SupportSettingsPage', dir: 'support-agent', type: 'settings', title: 'Support Settings', query: 'SUPPORT_SETTINGS', realQuery: 'EMPLOYEE_SETTINGS', dataField: 'employeeSettings' },
-  
-  // HR Manager
-  { name: 'ApplicationDetailsPage', dir: 'hr', type: 'details', title: 'Application Details', query: 'GET_ADMIN_APPLICATION', realQuery: 'GET_ADMIN_APPLICATION', dataField: 'adminJobApplication' },
-  { name: 'PostJobPage', dir: 'hr', type: 'form', title: 'Post Job', mutation: 'CREATE_JOB', realMutation: 'CREATE_JOB' },
-  { name: 'AddEmployeePage', dir: 'hr', type: 'form', title: 'Add Employee', mutation: 'ADD_EMPLOYEE', realMutation: 'ADD_EMPLOYEE' },
-  { name: 'EmployeeProfilePage', dir: 'hr', type: 'profile', title: 'Employee Profile', query: 'GET_EMPLOYEE', realQuery: 'GET_EMPLOYEE', dataField: 'employee' },
-  
-  // Manager
-  { name: 'NewProjectPage', dir: 'manager', type: 'form', title: 'New Project', mutation: 'CREATE_PROJECT', realMutation: 'CREATE_PROJECT' },
-  { name: 'ProjectDetailsPage', dir: 'manager', type: 'details', title: 'Project Details', query: 'GET_PROJECT_BY_ID', realQuery: 'GET_PROJECT_BY_ID', dataField: 'project' },
-  { name: 'EditProjectPage', dir: 'manager', type: 'form', title: 'Edit Project', mutation: 'UPDATE_PROJECT', realMutation: 'UPDATE_PROJECT' },
-  { name: 'AddTeamMemberPage', dir: 'manager', type: 'form', title: 'Add Team Member', mutation: 'ADD_TEAM_MEMBER', realMutation: 'ADD_EMPLOYEE' },
-  { name: 'TeamMemberProfilePage', dir: 'manager', type: 'profile', title: 'Team Member Profile', query: 'GET_EMPLOYEE', realQuery: 'GET_EMPLOYEE', dataField: 'employee' },
-  { name: 'AssignTaskPage', dir: 'manager', type: 'form', title: 'Assign Task', mutation: 'ASSIGN_TASK', realMutation: 'ASSIGN_TASK' },
-  { name: 'ManagerReportsPage', dir: 'manager', type: 'reports', title: 'Manager Reports', query: 'MANAGER_REPORTS', realQuery: 'MANAGER_STATS', dataField: 'managerStats' },
-  { name: 'BudgetPage', dir: 'manager', type: 'analytics', title: 'Budget Overview', query: 'MANAGER_BUDGET', realQuery: 'MANAGER_STATS', dataField: 'managerStats' },
-  
+  { name: 'TicketDetailsPage', dir: 'support-agent', type: 'details', title: 'Ticket Details', realQuery: 'GET_TICKET', dataField: 'ticket', hasId: true },
+  { name: 'SupportSettingsPage', dir: 'support-agent', type: 'settings', title: 'Support Settings', realQuery: 'EMPLOYEE_SETTINGS', dataField: 'employeeSettings' },
+  { name: 'MyTicketsPage', dir: 'support-agent', type: 'list', title: 'My Tickets', realQuery: 'OPEN_TICKETS', dataField: 'openTickets' },
+
+  // Store Manager
+  { name: 'SuspendedStoresPage', dir: 'store-manager', type: 'list', title: 'Suspended Stores', realQuery: 'STORE_MANAGER_STATS', dataField: 'suspendedStores' },
+  { name: 'StoreDetailsPage', dir: 'store-manager', type: 'details', title: 'Store Details', realQuery: 'GET_STORE', dataField: 'store', hasId: true },
+  { name: 'SuspendStorePage', dir: 'store-manager', type: 'form', title: 'Suspend Store', realMutation: 'SUSPEND_STORE' },
+  { name: 'StoreCategoriesPage', dir: 'store-manager', type: 'list', title: 'Store Categories', realQuery: 'STORE_MANAGER_STATS', dataField: 'storesByCategory' },
+  { name: 'StoreAnalyticsPage', dir: 'store-manager', type: 'analytics', title: 'Store Analytics', realQuery: 'STORE_MANAGER_STATS', dataField: 'storeManagerStats' },
+
   // Seller Manager
-  { name: 'SellerApprovalsPage', dir: 'seller-manager', type: 'list', title: 'Seller Approvals', query: 'PENDING_SELLERS', realQuery: 'PENDING_SELLERS', dataField: 'pendingSellers' },
-  { name: 'SellersPage', dir: 'seller-manager', type: 'list', title: 'All Sellers', query: 'ALL_SELLERS', realQuery: 'SELLER_MANAGER_STATS', dataField: 'topSellers' },
-  { name: 'SellerDetailsPage', dir: 'seller-manager', type: 'details', title: 'Seller Details', query: 'GET_SELLER', realQuery: 'SELLER_MANAGER_STATS', dataField: 'topSellers', hasId: true },
-  { name: 'StoresPage', dir: 'seller-manager', type: 'list', title: 'Stores', query: 'ALL_STORES', realQuery: 'ALL_STORES', dataField: 'allStores' },
-  { name: 'StoreDetailsPage', dir: 'seller-manager', type: 'details', title: 'Store Details', query: 'GET_STORE', realQuery: 'ALL_STORES', dataField: 'allStores', hasId: true },
-  { name: 'SellerReportsPage', dir: 'seller-manager', type: 'reports', title: 'Seller Reports', query: 'SELLER_REPORTS', realQuery: 'SELLER_MANAGER_STATS', dataField: 'sellerManagerStats' },
+  { name: 'SellersPage', dir: 'seller-manager', type: 'list', title: 'All Sellers', realQuery: 'SELLER_MANAGER_STATS', dataField: 'topSellers' },
+  { name: 'SellerDetailsPage', dir: 'seller-manager', type: 'details', title: 'Seller Details', realQuery: 'GET_SELLER', dataField: 'seller', hasId: true },
+  { name: 'SellerReportsPage', dir: 'seller-manager', type: 'reports', title: 'Seller Reports', realQuery: 'SELLER_MANAGER_STATS', dataField: 'sellerManagerStats' },
+
+  // Marketing Manager
+  { name: 'EmailMarketingPage', dir: 'marketing-manager', type: 'list', title: 'Email Campaigns', realQuery: 'ACTIVE_CAMPAIGNS', dataField: 'activeCampaigns' },
+  { name: 'NewCampaignPage', dir: 'marketing-manager', type: 'form', title: 'New Campaign', realMutation: 'CREATE_CAMPAIGN_EMPLOYEE' },
+  { name: 'CampaignDetailsPage', dir: 'marketing-manager', type: 'details', title: 'Campaign Details', realQuery: 'CAMPAIGN_PERFORMANCE', dataField: 'campaignPerformance', hasId: true },
+  { name: 'EditCampaignPage', dir: 'marketing-manager', type: 'form', title: 'Edit Campaign', realMutation: 'UPDATE_CAMPAIGN_STATUS' },
+  { name: 'AudiencePage', dir: 'marketing-manager', type: 'analytics', title: 'Audience Insights', realQuery: 'MARKETING_MANAGER_STATS', dataField: 'marketingManagerStats' },
+
+  // Manager
+  { name: 'AssignTaskPage', dir: 'manager', type: 'form', title: 'Assign Task', realMutation: 'ASSIGN_TASK' },
+  { name: 'AddTeamMemberPage', dir: 'manager', type: 'form', title: 'Add Team Member', realMutation: 'ADD_EMPLOYEE' },
+  { name: 'TeamMemberProfilePage', dir: 'manager', type: 'profile', title: 'Team Member Profile', realQuery: 'GET_EMPLOYEE', dataField: 'employee', hasId: true },
+  { name: 'NewProjectPage', dir: 'manager', type: 'form', title: 'New Project', realMutation: 'CREATE_PROJECT' },
+  { name: 'ManagerReportsPage', dir: 'manager', type: 'reports', title: 'Manager Reports', realQuery: 'MANAGER_STATS', dataField: 'managerStats' },
+  { name: 'ProjectDetailsPage', dir: 'manager', type: 'details', title: 'Project Details', realQuery: 'GET_PROJECT_BY_ID', dataField: 'project', hasId: true },
+  { name: 'EditProjectPage', dir: 'manager', type: 'form', title: 'Edit Project', realMutation: 'UPDATE_PROJECT' },
+  { name: 'BudgetPage', dir: 'manager', type: 'analytics', title: 'Budget Overview', realQuery: 'MANAGER_STATS', dataField: 'managerStats' },
+
+  // HR Manager
+  { name: 'PostJobPage', dir: 'hr', type: 'form', title: 'Post Job', realMutation: 'CREATE_JOB' },
+  { name: 'InterviewsPage', dir: 'hr', type: 'list', title: 'Interviews', realQuery: 'HR_INTERVIEWS', dataField: 'hrInterviews' },
+  { name: 'AddEmployeePage', dir: 'hr', type: 'form', title: 'Add Employee', realMutation: 'ADD_EMPLOYEE' },
+  { name: 'ApplicationDetailsPage', dir: 'hr', type: 'details', title: 'Application Details', realQuery: 'GET_ADMIN_APPLICATION', dataField: 'adminJobApplication', hasId: true },
+  { name: 'EmployeeProfilePage', dir: 'hr', type: 'profile', title: 'Employee Profile', realQuery: 'GET_EMPLOYEE', dataField: 'employee', hasId: true },
+
+  // Finance Manager
+  { name: 'SalaryDetailsPage', dir: 'finance-manager', type: 'details', title: 'Salary Details', realQuery: 'GET_SALARY', dataField: 'salary', hasId: true },
+  { name: 'FinanceReportsPage', dir: 'finance-manager', type: 'reports', title: 'Financial Reports', realQuery: 'FINANCE_MANAGER_STATS', dataField: 'financeManagerStats' },
+  { name: 'PayoutDetailsPage', dir: 'finance-manager', type: 'details', title: 'Payout Details', realQuery: 'GET_PAYOUT', dataField: 'payout', hasId: true },
+  { name: 'FinanceAnalyticsPage', dir: 'finance-manager', type: 'analytics', title: 'Financial Analytics', realQuery: 'FINANCE_MANAGER_STATS', dataField: 'financeManagerStats' },
+
+  // App Manager
+  { name: 'AppAnalyticsPage', dir: 'app-manager', type: 'analytics', title: 'App Analytics', realQuery: 'APP_MANAGER_STATS', dataField: 'appManagerStats' },
+  { name: 'AppReviewPage', dir: 'app-manager', type: 'form', title: 'Review App', realMutation: 'REVIEW_APP' },
+  { name: 'AppDetailsPage', dir: 'app-manager', type: 'details', title: 'App Details', realQuery: 'GET_APP', dataField: 'app', hasId: true },
+  { name: 'AppsPage', dir: 'app-manager', type: 'list', title: 'Applications', realQuery: 'APP_MANAGER_STATS', dataField: 'topApps' },
+  { name: 'CategoriesPage', dir: 'app-manager', type: 'list', title: 'Categories', realQuery: 'APP_MANAGER_STATS', dataField: 'appsByStatus' },
+  { name: 'DeveloperDetailsPage', dir: 'app-manager', type: 'details', title: 'Developer Details', realQuery: 'ALL_DEVELOPERS', dataField: 'allDevelopers', hasId: true },
+
+  // App Reviewer
+  { name: 'ReviewAppPage', dir: 'app-reviewer', type: 'form', title: 'Review App', realMutation: 'SUBMIT_REVIEW' },
+
+  // Content Moderator
+  { name: 'ContentDetailsPage', dir: 'content-moderator', type: 'details', title: 'Content Details', realQuery: 'PENDING_REPORTS', dataField: 'pendingReports', hasId: true },
+  { name: 'FlaggedContentPage', dir: 'content-moderator', type: 'list', title: 'Flagged Content', realQuery: 'CONTENT_MODERATOR_STATS', dataField: 'pendingReportsList' },
+  { name: 'GuidelinesPage', dir: 'content-moderator', type: 'static', title: 'Moderation Guidelines' },
 ];
 
-// ✅ دالة لتوليد المحتوى
-function generateComponentContent(comp) {
-  const { name, type, title, realQuery, realMutation, dataField, hasId } = comp;
+// ✅ دالة لتحديد مسار الاستيراد الصحيح
+function getImportPath(realQuery, realMutation) {
+  const queryMap = {
+    'GET_PROJECT_BY_ID': '@/graphql/employee/queries',
+    'GET_DEVELOPER': '@/graphql/jobs/queries',
+    'GET_EMPLOYEE': '@/graphql/jobs/queries',
+    'GET_ADMIN_APPLICATION': '@/graphql/jobs/queries',
+    'GET_SALARY': '@/graphql/jobs/queries',
+    'GET_PAYOUT': '@/graphql/employee/queries',
+    'GET_STORE': '@/graphql/employee/queries',
+    'GET_TICKET': '@/graphql/employee/queries',
+    'GET_APP': '@/graphql/employee/queries',
+    'GET_SELLER': '@/graphql/jobs/queries',
+    'DEVELOPER_MANAGER_STATS': '@/graphql/employee/queries',
+    'STORE_MANAGER_STATS': '@/graphql/employee/queries',
+    'SELLER_MANAGER_STATS': '@/graphql/employee/queries',
+    'FINANCE_MANAGER_STATS': '@/graphql/employee/queries',
+    'APP_MANAGER_STATS': '@/graphql/employee/queries',
+    'MARKETING_MANAGER_STATS': '@/graphql/employee/queries',
+    'CONTENT_MODERATOR_STATS': '@/graphql/employee/queries',
+    'SUPPORT_AGENT_STATS': '@/graphql/employee/queries',
+    'EMPLOYEE_SETTINGS': '@/graphql/employee/queries',
+    'OPEN_TICKETS': '@/graphql/employee/queries',
+    'HR_INTERVIEWS': '@/graphql/employee/queries',
+    'CAMPAIGN_PERFORMANCE': '@/graphql/employee/queries',
+    'ACTIVE_CAMPAIGNS': '@/graphql/employee/queries',
+    'ALL_DEVELOPERS': '@/graphql/employee/queries',
+    'PENDING_REPORTS': '@/graphql/employee/queries',
+    'MANAGER_STATS': '@/graphql/employee/queries',
+  };
+
+  const mutationMap = {
+    'CREATE_PROJECT': '@/graphql/client/mutations',
+    'UPDATE_PROJECT': '@/graphql/client/mutations',
+    'CREATE_JOB': '@/graphql/jobs/mutations',
+    'ADD_EMPLOYEE': '@/graphql/employee/mutations',
+    'ASSIGN_TASK': '@/graphql/employee/mutations',
+    'SUSPEND_STORE': '@/graphql/employee/mutations',
+    'REVIEW_APP': '@/graphql/employee/mutations',
+    'SUBMIT_REVIEW': '@/graphql/employee/mutations',
+    'CREATE_CAMPAIGN_EMPLOYEE': '@/graphql/employee/mutations',
+    'UPDATE_CAMPAIGN_STATUS': '@/graphql/employee/mutations',
+    'ASSIGN_PROJECT': '@/graphql/employee/mutations',
+  };
+
+  if (realQuery && queryMap[realQuery]) return queryMap[realQuery];
+  if (realMutation && mutationMap[realMutation]) return mutationMap[realMutation];
+  return '@/graphql/employee/queries';
+}
+
+// ✅ قالب analytics المصحح نهائياً
+const analyticsTemplate = (comp) => {
+  const { realQuery, dataField, name, title } = comp;
+  const importPath = getImportPath(realQuery, null);
   
-  // تحديد ملف الاستيراد الصحيح
-  let importPath = '';
-  let queryName = realQuery;
-  let mutationName = realMutation;
-  
-  // تحديد المسار الصحيح للاستعلامات
-  if (['GET_DEVELOPER', 'GET_EMPLOYEE', 'GET_ADMIN_APPLICATION', 'GET_SALARY', 'EMPLOYEE_SALARIES', 'GET_PROJECT_BY_ID'].includes(realQuery)) {
-    importPath = '@/graphql/jobs/queries';
-  } else if (realQuery) {
-    importPath = '@/graphql/employee/queries';
-  }
-  
-  if (['CREATE_JOB', 'ADD_EMPLOYEE', 'CREATE_PROJECT', 'UPDATE_PROJECT', 'ASSIGN_TASK'].includes(realMutation)) {
-    importPath = '@/graphql/jobs/mutations';
-  } else if (realMutation) {
-    importPath = '@/graphql/employee/mutations';
-  }
-  
-  // قوالب المكونات
-  const templates = {
-    list: `'use client';
+  return `'use client';
+
+import { useQuery } from '@apollo/client';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { BarChart, TrendingUp, DollarSign, Users } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import { ${realQuery} } from '${importPath}';
+
+export function ${name}() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const { data, loading } = useQuery(${realQuery});
+
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (!session) router.push('/sign-in');
+  }, [session, status, router]);
+
+  if (loading) return <Skeleton className="h-96 w-full" />;
+
+  const stats = data?.${dataField} || {};
+
+  const total = stats.total !== undefined ? stats.total : (stats.totalApps !== undefined ? stats.totalApps : (stats.totalRevenue !== undefined ? stats.totalRevenue : 0));
+  const active = stats.active !== undefined ? stats.active : (stats.activeApps !== undefined ? stats.activeApps : (stats.activeCampaigns !== undefined ? stats.activeCampaigns : 0));
+  const revenueAmount = stats.totalRevenue !== undefined ? stats.totalRevenue : (stats.totalSpent !== undefined ? stats.totalSpent : 0);
+  const growth = stats.growth !== undefined ? stats.growth : 15;
+
+  return (
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">${title}</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Total</p>
+                <p className="text-2xl font-bold">${'{total}'}</p>
+              </div>
+              <BarChart className="h-8 w-8 text-gray-400" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Active</p>
+                <p className="text-2xl font-bold text-green-600">${'{active}'}</p>
+              </div>
+              <TrendingUp className="h-8 w-8 text-green-400" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Revenue</p>
+                <p className="text-2xl font-bold">${'${revenueAmount}'}</p>
+              </div>
+              <DollarSign className="h-8 w-8 text-green-400" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-500">Growth</p>
+                <p className="text-2xl font-bold text-blue-600">+${'{growth}'}%</p>
+              </div>
+              <Users className="h-8 w-8 text-blue-400" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Analytics Data</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <pre className="bg-gray-50 p-4 rounded-lg overflow-auto">
+            ${'{JSON.stringify(stats, null, 2)}'}
+          </pre>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}`;
+};
+
+// ✅ قوالب المكونات الأخرى
+const templates = {
+  list: (comp) => `'use client';
 
 import { useQuery } from '@apollo/client';
 import { Card, CardContent } from '@/components/ui/card';
@@ -216,13 +248,13 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [search, setSearch] = useState('');
-  const { data, loading } = useQuery(${realQuery});
+  const { data, loading } = useQuery(${comp.realQuery});
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -231,18 +263,12 @@ export function ${name}() {
 
   if (loading) return <Skeleton className="h-96 w-full" />;
 
-  let items = data?.${dataField} || [];
-  
-  // معالجة البيانات حسب النوع
-  if (Array.isArray(items)) {
-    items = items;
-  } else if (items && typeof items === 'object') {
+  let items = data?.${comp.dataField} || [];
+  if (typeof items === 'object' && !Array.isArray(items)) {
     items = Object.values(items).flat();
-  } else {
-    items = [];
   }
 
-  const filteredItems = items.filter((item: any) =>
+  const filteredItems = items.filter((item) =>
     item.name?.toLowerCase().includes(search.toLowerCase()) ||
     item.title?.toLowerCase().includes(search.toLowerCase()) ||
     item.businessName?.toLowerCase().includes(search.toLowerCase())
@@ -251,7 +277,7 @@ export function ${name}() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">${title}</h1>
+        <h1 className="text-2xl font-bold">${comp.title}</h1>
         <div className="relative w-64">
           <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
           <Input
@@ -264,7 +290,7 @@ export function ${name}() {
       </div>
 
       <div className="space-y-4">
-        {filteredItems.map((item: any) => (
+        {filteredItems.map((item) => (
           <Card key={item.id || item._id} className="hover:shadow-md transition-shadow">
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -287,7 +313,7 @@ export function ${name}() {
   );
 }`,
 
-    details: `'use client';
+  details: (comp) => `'use client';
 
 import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
@@ -299,15 +325,15 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const params = useParams();
   const router = useRouter();
   const { data: session, status } = useSession();
   const id = params?.id as string;
 
-  const { data, loading } = useQuery(${realQuery}, {
+  const { data, loading } = useQuery(${comp.realQuery}, {
     variables: { id },
     skip: !id
   });
@@ -319,7 +345,7 @@ export function ${name}() {
 
   if (loading) return <Skeleton className="h-96 w-full" />;
 
-  const item = data?.${dataField};
+  const item = data?.${comp.dataField};
 
   return (
     <div className="space-y-6">
@@ -329,7 +355,7 @@ export function ${name}() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back
           </Button>
-          <h1 className="text-2xl font-bold">${title}</h1>
+          <h1 className="text-2xl font-bold">${comp.title}</h1>
         </div>
         <div className="flex gap-2">
           <Link href={\`./edit\`}>
@@ -359,7 +385,7 @@ export function ${name}() {
   );
 }`,
 
-    form: `'use client';
+  form: (comp) => `'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -372,13 +398,13 @@ import { Label } from '@/components/ui/label';
 import { ArrowLeft, Save } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { ${realMutation} } from '${importPath}';
+import { ${comp.realMutation} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [formData, setFormData] = useState({});
-  const [mutate, { loading }] = useMutation(${realMutation});
+  const [mutate, { loading }] = useMutation(${comp.realMutation});
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -401,7 +427,7 @@ export function ${name}() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <h1 className="text-2xl font-bold">${title}</h1>
+        <h1 className="text-2xl font-bold">${comp.title}</h1>
       </div>
 
       <Card>
@@ -439,126 +465,31 @@ export function ${name}() {
   );
 }`,
 
-    analytics: `'use client';
+  analytics: analyticsTemplate,
 
-import { useQuery } from '@apollo/client';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { BarChart, TrendingUp, DollarSign, Users } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
-
-export function ${name}() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const { data, loading } = useQuery(${realQuery});
-
-  useEffect(() => {
-    if (status === 'loading') return;
-    if (!session) router.push('/sign-in');
-  }, [session, status, router]);
-
-  if (loading) return <Skeleton className="h-96 w-full" />;
-
-  const stats = data?.${dataField} || {};
-
-  const getValue = (path) => {
-    return path.split('.').reduce((obj, key) => obj?.[key], stats) || 0;
-  };
-
-  return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">${title}</h1>
-      
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Total</p>
-                <p className="text-2xl font-bold">{getValue('total') || getValue('totalApps') || getValue('totalRevenue') || 0}</p>
-              </div>
-              <BarChart className="h-8 w-8 text-gray-400" />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Active</p>
-                <p className="text-2xl font-bold text-green-600">{getValue('active') || getValue('activeApps') || getValue('activeCampaigns') || 0}</p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-green-400" />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Revenue</p>
-                <p className="text-2xl font-bold">${getValue('totalRevenue') || getValue('totalSpent') || 0}</p>
-              </div>
-              <DollarSign className="h-8 w-8 text-green-400" />
-            </div>
-          </CardContent>
-        </Card>
-        
-        <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-500">Growth</p>
-                <p className="text-2xl font-bold text-blue-600">+{getValue('growth') || 15}%</p>
-              </div>
-              <Users className="h-8 w-8 text-blue-400" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Analytics Data</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <pre className="bg-gray-50 p-4 rounded-lg overflow-auto">
-            {JSON.stringify(stats, null, 2)}
-          </pre>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}`,
-
-    profile: `'use client';
+  profile: (comp) => `'use client';
 
 import { useParams } from 'next/navigation';
 import { useQuery } from '@apollo/client';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Mail, Phone, MapPin, Briefcase } from 'lucide-react';
+import { ArrowLeft, Phone, MapPin, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const params = useParams();
   const router = useRouter();
   const { data: session, status } = useSession();
   const id = params?.id as string;
 
-  const { data, loading } = useQuery(${realQuery}, {
+  const { data, loading } = useQuery(${comp.realQuery}, {
     variables: { id },
     skip: !id
   });
@@ -570,7 +501,7 @@ export function ${name}() {
 
   if (loading) return <Skeleton className="h-96 w-full" />;
 
-  const profile = data?.${dataField};
+  const profile = data?.${comp.dataField};
 
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
@@ -579,7 +510,7 @@ export function ${name}() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <h1 className="text-2xl font-bold">${title}</h1>
+        <h1 className="text-2xl font-bold">${comp.title}</h1>
       </div>
 
       <Card>
@@ -628,22 +559,22 @@ export function ${name}() {
   );
 }`,
 
-    matrix: `'use client';
+  matrix: (comp) => `'use client';
 
 import { useQuery } from '@apollo/client';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Code, TrendingUp } from 'lucide-react';
+import { Code } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { data, loading } = useQuery(${realQuery});
+  const { data, loading } = useQuery(${comp.realQuery});
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -652,8 +583,7 @@ export function ${name}() {
 
   if (loading) return <Skeleton className="h-96 w-full" />;
 
-  let skills = data?.${dataField} || [];
-  
+  let skills = data?.${comp.dataField} || [];
   if (typeof skills === 'object' && !Array.isArray(skills)) {
     skills = Object.values(skills).flat();
   }
@@ -662,10 +592,10 @@ export function ${name}() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">${title}</h1>
+      <h1 className="text-2xl font-bold">${comp.title}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {skills.map((skill: any, index: number) => (
+        {skills.map((skill, index) => (
           <Card key={index}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
@@ -684,7 +614,7 @@ export function ${name}() {
   );
 }`,
 
-    assign: `'use client';
+  assign: (comp) => `'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -696,17 +626,17 @@ import { Label } from '@/components/ui/label';
 import { ArrowLeft, Save } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { ${realMutation} } from '${importPath}';
+import { ${comp.realMutation} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 import { DEVELOPER_TEAM, DEVELOPER_APPS } from '@/graphql/employee/queries';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export function ${name}() {
+export function ${comp.name}() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [selectedDeveloper, setSelectedDeveloper] = useState('');
   const [selectedProject, setSelectedProject] = useState('');
   
-  const [mutate, { loading }] = useMutation(${realMutation});
+  const [mutate, { loading }] = useMutation(${comp.realMutation});
   const { data: developersData, loading: devsLoading } = useQuery(DEVELOPER_TEAM);
   const { data: projectsData, loading: projectsLoading } = useQuery(DEVELOPER_APPS);
 
@@ -736,7 +666,7 @@ export function ${name}() {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <h1 className="text-2xl font-bold">${title}</h1>
+        <h1 className="text-2xl font-bold">${comp.title}</h1>
       </div>
 
       <Card>
@@ -751,7 +681,7 @@ export function ${name}() {
                 <SelectValue placeholder="Select developer..." />
               </SelectTrigger>
               <SelectContent>
-                {developers.map((dev: any) => (
+                {developers.map((dev) => (
                   <SelectItem key={dev.id} value={dev.id}>{dev.name}</SelectItem>
                 ))}
               </SelectContent>
@@ -765,7 +695,7 @@ export function ${name}() {
                 <SelectValue placeholder="Select project..." />
               </SelectTrigger>
               <SelectContent>
-                {projects.map((proj: any) => (
+                {projects.map((proj) => (
                   <SelectItem key={proj.id} value={proj.id}>{proj.name}</SelectItem>
                 ))}
               </SelectContent>
@@ -787,22 +717,22 @@ export function ${name}() {
   );
 }`,
 
-    reports: `'use client';
+  reports: (comp) => `'use client';
 
 import { useQuery } from '@apollo/client';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Download, FileText } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 
-export function ${name}() {
+export function ${comp.name}() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { data, loading } = useQuery(${realQuery});
+  const { data, loading } = useQuery(${comp.realQuery});
 
   useEffect(() => {
     if (status === 'loading') return;
@@ -811,7 +741,7 @@ export function ${name}() {
 
   if (loading) return <Skeleton className="h-96 w-full" />;
 
-  const reports = data?.${dataField} || {};
+  const reports = data?.${comp.dataField} || {};
 
   const formatReports = () => {
     if (Array.isArray(reports)) return reports;
@@ -828,7 +758,7 @@ export function ${name}() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold">${title}</h1>
+        <h1 className="text-2xl font-bold">${comp.title}</h1>
         <Button variant="outline" size="sm">
           <Download className="h-4 w-4 mr-2" />
           Export All
@@ -836,7 +766,7 @@ export function ${name}() {
       </div>
 
       <div className="space-y-4">
-        {reportList.map((report: any) => (
+        {reportList.map((report) => (
           <Card key={report.id}>
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
@@ -860,7 +790,7 @@ export function ${name}() {
   );
 }`,
 
-    settings: `'use client';
+  settings: (comp) => `'use client';
 
 import { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
@@ -874,20 +804,20 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ${realQuery} } from '${importPath}';
+import { ${comp.realQuery} } from '${getImportPath(comp.realQuery, comp.realMutation)}';
 import { UPDATE_EMPLOYEE_SETTINGS } from '@/graphql/employee/mutations';
 
-export function ${name}() {
+export function ${comp.name}() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const { data, loading } = useQuery(${realQuery});
+  const { data, loading } = useQuery(${comp.realQuery});
   const [mutate] = useMutation(UPDATE_EMPLOYEE_SETTINGS);
   const [settings, setSettings] = useState({});
 
   useEffect(() => {
     if (status === 'loading') return;
     if (!session) router.push('/sign-in');
-    if (data) setSettings(data?.${dataField} || {});
+    if (data) setSettings(data?.${comp.dataField} || {});
   }, [session, status, data, router]);
 
   if (loading) return <Skeleton className="h-96 w-full" />;
@@ -903,7 +833,7 @@ export function ${name}() {
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold">${title}</h1>
+      <h1 className="text-2xl font-bold">${comp.title}</h1>
 
       <Card>
         <CardHeader>
@@ -954,15 +884,15 @@ export function ${name}() {
   );
 }`,
 
-    static: `'use client';
+  static: (comp) => `'use client';
 
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { BookOpen, Shield, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export function ${name}() {
+export function ${comp.name}() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -973,7 +903,7 @@ export function ${name}() {
 
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold">${title}</h1>
+      <h1 className="text-2xl font-bold">${comp.title}</h1>
 
       <Card>
         <CardHeader>
@@ -1000,15 +930,19 @@ export function ${name}() {
     </div>
   );
 }`,
-  };
+};
 
-  const template = templates[type];
-  if (!template) return `export function ${name}() { return <div>${name}</div>; }`;
-
+// ✅ دالة لتوليد المحتوى حسب النوع
+function generateComponentContent(comp) {
+  const template = templates[comp.type];
+  if (!template) {
+    console.warn(`⚠️ Unknown type: ${comp.type} for ${comp.name}, using list template`);
+    return templates.list(comp);
+  }
   return template(comp);
 }
 
-// إنشاء المكونات المفقودة
+// إنشاء المكونات
 console.log('🚀 Generating missing components...\n');
 
 let successCount = 0;
@@ -1018,7 +952,7 @@ missingComponents.forEach(comp => {
   try {
     const fullPath = path.join(baseDir, comp.dir, `${comp.name}.tsx`);
     const dir = path.dirname(fullPath);
-    
+
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
